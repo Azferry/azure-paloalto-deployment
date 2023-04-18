@@ -11,7 +11,7 @@ resource "azurerm_virtual_network" "connectivity" {
   location            = each.value.location
   # dns_servers   = each.value.dns_servers
 
-  tags          = each.value.tags
+  tags = each.value.tags
   depends_on = [
     azurerm_resource_group.az_rg
   ]
@@ -45,7 +45,7 @@ resource "azurerm_public_ip" "connectivity" {
   location            = each.value.region
   resource_group_name = each.value.resource_group_name
   allocation_method   = each.value.allocation_method
-  sku                     = each.value.sku
+  sku                 = each.value.sku
   # zones                   = each.value.zones
   # ip_version              = each.value.ip_version
   idle_timeout_in_minutes = each.value.idle_timeout
@@ -53,7 +53,7 @@ resource "azurerm_public_ip" "connectivity" {
   # reverse_fqdn            = each.value.reverse_fqdn
   # public_ip_prefix_id     = each.value.public_ip_prefix_id
   # ip_tags                 = each.value.ip_tags
-  tags                    = each.value.tags
+  tags = each.value.tags
 
   depends_on = [
     azurerm_resource_group.az_rg

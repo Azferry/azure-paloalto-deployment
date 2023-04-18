@@ -13,11 +13,11 @@ variable "azure_region" {
 variable "default_vm_username" {
   type        = string
   description = "The default username for the VM"
-  default = "paloadmin"
+  default     = "paloadmin"
 }
 variable "default_vm_userpassword" {
   type        = string
   description = "The default password for the VM"
-  default = "Change-Me-007"
+  default     = "Change-Me-007"
 
 }
