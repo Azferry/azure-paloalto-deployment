@@ -30,7 +30,7 @@ Follow the steps below to deploy the Azure Resources:
 Follow the steps below to deploy the configuration for the firewall:
 
 1. Login using the default user account
-2. Create a new service account 
+2. Create a new service account
 
 ## Post-deployment Steps
 
