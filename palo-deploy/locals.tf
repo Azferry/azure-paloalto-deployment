@@ -216,7 +216,7 @@ locals {
         sku                 = try(x.public_ip_sku, "Standard")
         idle_timeout        = try(x.idle_timeout, 4)
         en_pip              = try(x.public_ip, false)
-        domain_name_label = "${try("${key}", p.palo_nva.name)}-nic-${x.post_fix}-pip"
+        domain_name_label   = "${try("${key}", p.palo_nva.name)}-nic-${x.post_fix}-pip"
       }
     ]
   ])

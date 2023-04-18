@@ -50,7 +50,7 @@ resource "azurerm_public_ip" "connectivity" {
   # ip_version              = each.value.ip_version
   idle_timeout_in_minutes = each.value.idle_timeout
   domain_name_label       = each.value.domain_name_label
-  tags = each.value.tags
+  tags                    = each.value.tags
 
   depends_on = [
     azurerm_resource_group.az_rg
