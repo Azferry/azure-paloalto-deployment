@@ -18,7 +18,11 @@ locals {
     # subnets = local.subnets
     # azurerm_vnet = local.azurerm_vnet
     # azurerm_vnet_sn = local.azurerm_vnet_sn
-
+    
+    /* NVA Palo */
+    # azurerm_vm = local.azurerm_vm
+    # network_interfaces = local.network_interfaces
+    # azurerm_nic = local.azurerm_nic
   }
 }
 

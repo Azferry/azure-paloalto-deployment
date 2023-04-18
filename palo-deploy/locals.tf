@@ -8,6 +8,9 @@ locals {
   subscription_id      = data.azurerm_client_config.current.subscription_id
   tenant_id            = data.azurerm_client_config.current.tenant_id
   builtin_library_path = "."
+
+  default_vm_username = var.default_vm_username
+  default_vm_userpassword = var.default_vm_userpassword
   template_file_vars = {
     prefix = local.prefix
     region = local.region
@@ -131,3 +134,69 @@ locals {
   # }
 }
 
+/* 
+Virtual Machines
+*/
+
+locals {
+  vm = [
+    for key, vm in local.definitions_map_from_json : {
+      name                = try("${key}-vm", vm.palo_nva.name)
+      resource_id         = "${local.resource_groups[key].resource_id}/providers/Microsoft.Compute/virtualMachines/${key}-vm"
+      region            = local.resource_groups[key].location
+      resource_group_name = local.resource_groups[key].name
+      tags                = local.tags
+      vm_disktype         = vm.palo_nva.vm_disktype
+      disk_name           = try("${key}-vm-osdisk", vm.palo_nva.disk_name)
+      vm_size             = vm.palo_nva.vm_size
+      vm_username         = try(vm.palo_nva.vm_username, local.default_vm_username)
+      vm_userpassword     = try(vm.palo_nva.vm_userpassword, local.default_vm_userpassword)
+      vm_prefix           = try(vm.vm_prefix, key)
+      image_reference            = vm.palo_nva.source_image_reference
+      plan             = vm.palo_nva.plan
+      nic_prefix        = "${try("${key}", vm.palo_nva.name)}-nic"
+      vm_nics             = [
+        for x in vm.palo_nva.network_interfaces : {
+          name           = "${try("${key}-vm", vm.palo_nva.name)}-${x.post_fix}"
+          resource_id    = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/networkInterfaces/${try("${key}-vm", vm.palo_nva.name)}-${x.post_fix}"
+          ip_configurations = {
+              name           = "IPConfig"
+              subnet_id      = local.azurerm_vnet_sn["${local.resource_groups[key].name}-${x.subnet}"].sn_id
+          #     private_ip_address_allocation = try(y.private_ip_address_allocation, "Dynamic")
+          #     private_ip_address = try(y.private_ip_address, null)
+          #     public_ip_address_id = try(y.public_ip_address_id, null)
+          }
+        }
+      ]
+    }
+  ]
+
+  network_interfaces = flatten([
+    for key, vm in local.definitions_map_from_json : [
+      for x in vm.palo_nva.network_interfaces : {
+        name                = "${try("${key}", vm.palo_nva.name)}-nic-${x.post_fix}"
+        resource_id         = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/networkInterfaces/${try("${key}-vm", vm.palo_nva.name)}-${x.post_fix}"
+        region            = local.resource_groups[key].location
+        resource_group_name = local.resource_groups[key].name
+        tags                = local.tags
+        enable_ip_forwarding = x.enable_ip_forwarding
+        enable_accelerated_networking = x.enable_accelerated_networking
+        ip_configurations = {
+            name           = "IPConfig"
+            subnet_id      = local.azurerm_vnet_sn["${local.resource_groups[key].name}-${x.subnet}"].sn_id
+            allocation = try(x.private_ip_address_allocation, "Dynamic")
+        #     private_ip_address = try(y.private_ip_address, null)
+        #     public_ip_address_id = try(y.public_ip_address_id, null)
+        }
+      }
+    ]
+  ])
+
+  azurerm_nic = {
+    for x in local.network_interfaces : x.name => x
+  }
+
+  azurerm_vm = {
+    for x in local.vm : x.resource_group_name => x
+  }
+}

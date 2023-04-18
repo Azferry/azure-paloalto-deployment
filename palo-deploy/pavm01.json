@@ -27,8 +27,6 @@
             "vm_size": "Standard_DS3_v2",
             "vm_prefix": null,
             "vm_disktype": "Premium_LRS",
-            "username": "ntcadmin",
-            "starting_pw": "Change-Me-007",
             "network_interfaces": [
                 {
                     "post_fix": "mgt",
