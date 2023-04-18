@@ -2,12 +2,12 @@
 Accept azurerm_marketplace_agreement for products
 Will show an error if the subscription has already accepted the agreement
 */
-resource "azurerm_marketplace_agreement" "connectivity" {
-  for_each  = local.marketplace_agreements_map
-  publisher = each.value.publisher
-  offer     = each.value.offer
-  plan      = each.value.plan
-}
+# resource "azurerm_marketplace_agreement" "connectivity" {
+#   for_each  = local.marketplace_agreements_map
+#   publisher = each.value.publisher
+#   offer     = each.value.offer
+#   plan      = each.value.plan
+# }
 
 /*
 Resource Groups Deployment

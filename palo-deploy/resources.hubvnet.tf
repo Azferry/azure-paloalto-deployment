@@ -49,10 +49,7 @@ resource "azurerm_public_ip" "connectivity" {
   # zones                   = each.value.zones
   # ip_version              = each.value.ip_version
   idle_timeout_in_minutes = each.value.idle_timeout
-  # domain_name_label       = each.value.domain_name_label
-  # reverse_fqdn            = each.value.reverse_fqdn
-  # public_ip_prefix_id     = each.value.public_ip_prefix_id
-  # ip_tags                 = each.value.ip_tags
+  domain_name_label       = each.value.domain_name_label
   tags = each.value.tags
 
   depends_on = [
