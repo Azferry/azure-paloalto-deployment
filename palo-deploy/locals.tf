@@ -33,8 +33,8 @@ locals {
     keys(value)[0] => values(value)[0]
   }
 
-  palo_nva = [for v in local.definitions_map_from_json : v["palo_nva"] if v["enabled"]]
-  hub_vnet = [for v in local.definitions_map_from_json : v["hub_network"] if v["enabled"]]
+  palo_nva = [for k, v in local.definitions_map_from_json : v["palo_nva"] if v["enabled"]]
+  hub_vnet = [for k, v in local.definitions_map_from_json : v["hub_network"] if v["enabled"]]
 }
 
 /*
@@ -68,5 +68,66 @@ locals {
   marketplace_agreements_map = {
     for x in local.palo_marketplace_agreements : "${x.publisher}_${x.offer}_${x.plan}" => x
   }
+}
+
+/* 
+Hub Networks
+*/
+locals {
+  virtual_network = [
+    for key, vn in local.definitions_map_from_json : {
+      name                = try("${key}-vn", vn.hub_network.name)
+      resource_id         = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/virtualNetworks/${key}-vn"
+      location            = local.resource_groups[key].location
+      resource_group_name = local.resource_groups[key].name
+      tags                = local.tags
+      vnet_cidr           = vn.hub_network.address_space
+      vnet_subnets        = [
+        for x in vn.hub_network.subnets : {
+          name           = x.name
+          cidr           = x.address_prefix
+          resource_id    = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/virtualNetworks/${key}-vn/subnets/${x.name}"
+        }
+      ]
+    }
+  ]
+
+  subnets = flatten([
+    for vn in local.virtual_network : [
+      for sn in vn.vnet_subnets : {
+        name           = sn.name
+        vn_name        = vn.name
+        resource_group_name        = vn.resource_group_name
+        location       = vn.location
+        cidr           = sn.cidr
+        # attach_nsg     = try(sn.attach_nsg != false, true)
+        sn_id          = sn.resource_id
+        # route_table_id = "/subscriptions/${local.subscription_id}/resourceGroups/${vn.rg_name}/providers/Microsoft.Network/routeTables/${vn.cpi_prefix}-vn${vn.series}-udr"
+      }
+    ]
+  ])
+
+  azurerm_vnet = {
+    for x in local.virtual_network : x.resource_group_name => x
+  }
+
+  azurerm_vnet_sn = {
+    for x in local.subnets : "${x.resource_group_name}-${x.name}" => x
+  }
+
+  # sn_attach_nsg = {
+  #   for x in local.azurerm_vnet_sn : "${x.rg_name}-${x.name}" => x if try(x.attach_nsg != false, true)
+  # }
+
+  # nsg_attach_sn = [
+  #   for cpi in local.sn_attach_nsg : {
+  #     nsg_id = local.azurerm_nsg[cpi.rg_name].resource_id
+  #     sn_id  = cpi.sn_id
+  #   }
+  # ]
+
+  # azurerm_attach_nsg_sn = {
+  #   for x in local.nsg_attach_sn : x.sn_id => x
+  # }
 }
 

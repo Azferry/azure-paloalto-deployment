@@ -1,43 +1,43 @@
-# resource "azurerm_virtual_network" "connectivity" {
-#   for_each = local.azurerm_virtual_network
 
-#   # Mandatory resource attributes
-#   name                = each.value.name
-#   resource_group_name = each.value.resource_group_name
-#   address_space       = each.value.address_space
-#   location            = each.value.location
+/* 
+Virutal Network deployment
+*/
+resource "azurerm_virtual_network" "connectivity" {
+  for_each = local.azurerm_vnet
 
-#   # Optional resource attributes
-#   bgp_community = each.value.bgp_community
-#   dns_servers   = each.value.dns_servers
-#   tags          = each.value.tags
+  name                = each.value.name
+  resource_group_name = each.value.resource_group_name
+  address_space       = each.value.vnet_cidr
+  location            = each.value.location
+  # dns_servers   = each.value.dns_servers
 
-#   # Set explicit dependencies
-#   depends_on = [
-#     azurerm_resource_group.az_rg,
-#     # azurerm_network_ddos_protection_plan.connectivity,
-#   ]
+  tags          = each.value.tags
+  depends_on = [
+    azurerm_resource_group.az_rg
+  ]
+}
 
-# }
+/* 
+Subnet deployment for Virtual Network
+*/
+resource "azurerm_subnet" "connectivity" {
+  for_each = local.azurerm_vnet_sn
 
-# resource "azurerm_subnet" "connectivity" {
-#   for_each = local.azurerm_subnet
+  name                 = each.value.name
+  resource_group_name  = each.value.resource_group_name
+  virtual_network_name = each.value.vn_name
+  address_prefixes     = each.value.cidr
 
-#   # Mandatory resource attributes
-#   name                 = each.value.name
-#   resource_group_name  = each.value.resource_group_name
-#   virtual_network_name = each.value.virtual_network_name
-#   address_prefixes     = each.value.address_prefixes
-
-#   depends_on = [
-#     azurerm_resource_group.az_rg,
-#     azurerm_virtual_network.connectivity,
-#     # azurerm_network_ddos_protection_plan.connectivity,
-#   ]
-
-# }
+  depends_on = [
+    azurerm_resource_group.az_rg,
+    azurerm_virtual_network.connectivity,
+  ]
+}
 
 
+/* 
+Public IP Deployment
+*/
 # resource "azurerm_public_ip" "connectivity" {
 #   for_each = local.azurerm_public_ip
 
@@ -64,6 +64,9 @@
 #   ]
 # }
 
+/* 
+Network Security Group Deployment
+*/
 # resource "azurerm_network_security_group" "connectivity" {
 #   for_each            = local.azurerm_nsg
 #   name                = each.value.name
@@ -79,6 +82,9 @@
 #   ]
 # }
 
+/* 
+Subnet Attchment to Network Security Group
+*/
 # resource "azurerm_subnet_network_security_group_association" "connectivity" {
 #   for_each                  = local.azurerm_nsg
 #   subnet_id                 = each.value.subnet_id

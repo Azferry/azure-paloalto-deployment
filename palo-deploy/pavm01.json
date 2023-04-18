@@ -1,28 +1,25 @@
 {
-    "palo01": {
+    "paloalto01": {
         "enabled": true,
         "region": "eastus",
         "hub_network": {
-            "name": "palo-hub-vnet",
+            "name": null,
             "address_space": ["10.10.0.0/24"],
             "subnets": [
                 { 
                     "name": "palo-mgt-sn01",
-                    "address_prefixes": ["10.10.0.64/28"],
-                    "network_security_group_id": "",
-                    "route_table_id": ""
+                    "address_prefix": ["10.10.0.32/27"],
+                    "network_security_group_id": null
                 },
                 { 
                     "name": "palo-trust-sn01",
-                    "address_prefixes": ["10.10.0.80/28"],
-                    "network_security_group_id": null,
-                    "route_table_id": ""
+                    "address_prefix": ["10.10.0.64/27"],
+                    "network_security_group_id": null
                 },
                 { 
                     "name": "palo-untrust-sn01",
-                    "address_prefixes": ["10.10.0.48/28"],
-                    "network_security_group_id": null,
-                    "route_table_id": ""
+                    "address_prefix": ["10.10.0.96/27"],
+                    "network_security_group_id": null
                 }
             ]
         },
