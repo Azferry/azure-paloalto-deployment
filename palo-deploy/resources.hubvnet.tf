@@ -38,31 +38,27 @@ resource "azurerm_subnet" "connectivity" {
 /* 
 Public IP Deployment
 */
-# resource "azurerm_public_ip" "connectivity" {
-#   for_each = local.azurerm_public_ip
+resource "azurerm_public_ip" "connectivity" {
+  for_each = local.azurerm_public_ip
 
-#   # Mandatory resource attributes
-#   name                = each.value.name
-#   location            = each.value.location
-#   resource_group_name = each.value.resource_group_name
-#   allocation_method   = each.value.allocation_method
+  name                = each.value.name
+  location            = each.value.region
+  resource_group_name = each.value.resource_group_name
+  allocation_method   = each.value.allocation_method
+  sku                     = each.value.sku
+  # zones                   = each.value.zones
+  # ip_version              = each.value.ip_version
+  idle_timeout_in_minutes = each.value.idle_timeout
+  # domain_name_label       = each.value.domain_name_label
+  # reverse_fqdn            = each.value.reverse_fqdn
+  # public_ip_prefix_id     = each.value.public_ip_prefix_id
+  # ip_tags                 = each.value.ip_tags
+  tags                    = each.value.tags
 
-#   # Optional resource attributes
-#   sku                     = each.value.sku
-#   zones                   = each.value.zones
-#   ip_version              = each.value.ip_version
-#   idle_timeout_in_minutes = each.value.idle_timeout_in_minutes
-#   domain_name_label       = each.value.domain_name_label
-#   reverse_fqdn            = each.value.reverse_fqdn
-#   public_ip_prefix_id     = each.value.public_ip_prefix_id
-#   ip_tags                 = each.value.ip_tags
-#   tags                    = each.value.tags
-
-#   # Set explicit dependencies
-#   depends_on = [
-#     azurerm_resource_group.az_rg
-#   ]
-# }
+  depends_on = [
+    azurerm_resource_group.az_rg
+  ]
+}
 
 /* 
 Network Security Group Deployment

@@ -23,6 +23,9 @@ locals {
     # azurerm_vm = local.azurerm_vm
     # network_interfaces = local.network_interfaces
     # azurerm_nic = local.azurerm_nic
+
+    /* Public IP */
+    public_ip = local.public_ip
   }
 }
 

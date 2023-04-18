@@ -137,7 +137,6 @@ locals {
 /* 
 Virtual Machines
 */
-
 locals {
   vm = [
     for key, vm in local.definitions_map_from_json : {
@@ -198,5 +197,31 @@ locals {
 
   azurerm_vm = {
     for x in local.vm : x.resource_group_name => x
+  }
+}
+
+/*
+Public IP Addresses
+*/
+locals {
+  public_ip = flatten([
+    for key, p in local.definitions_map_from_json : [
+      for x in p.palo_nva.network_interfaces : {
+        name                = "${try("${key}", p.palo_nva.name)}-nic-${x.post_fix}-pip"
+        resource_id         = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/publicIPAddresses/${try("${key}", p.palo_nva.name)}-nic-${x.post_fix}-pip"
+        region            = local.resource_groups[key].location
+        resource_group_name = local.resource_groups[key].name
+        tags                = local.tags
+        allocation_method   = try(x.public_ip_allocation_method, "Dynamic")
+        sku                 = try(x.public_ip_sku, "Basic")
+        idle_timeout        = try(x.idle_timeout, 4)
+        en_pip          = try(x.public_ip, false)
+      }
+    ]
+  ])
+
+  azurerm_public_ip = {
+    for x in local.public_ip : x.name => x
+    if x.en_pip == true
   }
 }
