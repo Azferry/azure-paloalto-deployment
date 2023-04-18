@@ -33,12 +33,12 @@ resource "azurerm_network_interface" "connectivity" {
     name                          = each.value.ip_configurations.name
     subnet_id                     = each.value.ip_configurations.subnet_id
     private_ip_address_allocation = each.value.ip_configurations.allocation
-    # public_ip_address_id          = each.value.pip
+    public_ip_address_id          = each.value.ip_configurations.pip
   }
   depends_on = [
     azurerm_resource_group.az_rg,
-    azurerm_subnet.connectivity
-    # azurerm_public_ip.connectivity
+    azurerm_subnet.connectivity,
+    azurerm_public_ip.connectivity
   ]
   tags = each.value.tags
 }

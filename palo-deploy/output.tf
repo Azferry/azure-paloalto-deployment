@@ -25,7 +25,7 @@ locals {
     # azurerm_nic = local.azurerm_nic
 
     /* Public IP */
-    public_ip = local.public_ip
+    # public_ip = local.public_ip
   }
 }
 

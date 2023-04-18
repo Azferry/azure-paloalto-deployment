@@ -185,7 +185,7 @@ locals {
             subnet_id      = local.azurerm_vnet_sn["${local.resource_groups[key].name}-${x.subnet}"].sn_id
             allocation = try(x.private_ip_address_allocation, "Dynamic")
         #     private_ip_address = try(y.private_ip_address, null)
-        #     public_ip_address_id = try(y.public_ip_address_id, null)
+            pip = try(local.azurerm_public_ip["${try("${key}", vm.palo_nva.name)}-nic-${x.post_fix}-pip"].resource_id, null)
         }
       }
     ]
@@ -212,8 +212,8 @@ locals {
         region            = local.resource_groups[key].location
         resource_group_name = local.resource_groups[key].name
         tags                = local.tags
-        allocation_method   = try(x.public_ip_allocation_method, "Dynamic")
-        sku                 = try(x.public_ip_sku, "Basic")
+        allocation_method   = try(x.public_ip_allocation_method, "Static")
+        sku                 = try(x.public_ip_sku, "Standard")
         idle_timeout        = try(x.idle_timeout, 4)
         en_pip          = try(x.public_ip, false)
       }
