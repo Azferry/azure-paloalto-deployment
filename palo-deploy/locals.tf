@@ -3,46 +3,53 @@
 General Local Vars
 */
 locals {
-  tags                = var.tags
-  subscription_id_hub = var.subscription_id_hub
-  environment         = var.environment
-  root                = var.root
+  prefix               = var.prefix
+  region               = var.azure_region
+  subscription_id      = data.azurerm_client_config.current.subscription_id
+  tenant_id            = data.azurerm_client_config.current.tenant_id
+  builtin_library_path = "."
+  template_file_vars = {
+    prefix = local.prefix
+    region = local.region
+  }
+  tags = {
+    "Environment" = "Dev"
+  }
 }
 
 /*
-Map objects from module output
+Build definitions form Dataset json files
 */
 locals {
-  azurerm_resource_group = {
-    for x in module.connectivity_hub_data.azurerm_resource_group : x.name => x
+  definitions_json = tolist(fileset(local.builtin_library_path, "pavm*.json"))
+
+  definitions_dataset_from_json = {
+    for filepath in local.definitions_json :
+    filepath => jsondecode(templatefile("${local.builtin_library_path}/${filepath}", local.template_file_vars))
   }
 
-  azurerm_virtual_network = {
-    for x in module.connectivity_hub_data.azurerm_virtual_network : x.name => x
+  definitions_map_from_json = {
+    for key, value in local.definitions_dataset_from_json :
+    keys(value)[0] => values(value)[0]
   }
 
-  azurerm_subnet = {
-    for x in module.connectivity_hub_data.azurerm_subnet : x.resource_id => x
-  }
+  palo_nva = [for v in local.definitions_map_from_json : v["palo_nva"] if v["enabled"]]
+  hub_vnet = [for v in local.definitions_map_from_json : v["hub_network"] if v["enabled"]]
+}
 
-  azurerm_bastion = {
-    for x in module.connectivity_hub_data.azurerm_bastion : x.subnet_id => x
-  }
-
-  azurerm_public_ip = {
-    for x in module.connectivity_hub_data.azurerm_public_ip : x.resource_id => x
-  }
-
-  azurerm_nsg = {
-    for x in module.connectivity_hub_data.azurerm_nsg : x.name => x
-  }
-
-  paloalto_firewalls = {
-    for x in module.connectivity_hub_data.paloalto_firewalls : x.name => x
-  }
-
-  azurerm_network_interfaces = {
-    for x in module.connectivity_hub_data.azurerm_network_interfaces : x.name => x
+/*
+Resource Groups Local Vars
+*/
+locals {
+  resource_groups = {
+    for key, rg in local.definitions_map_from_json :
+    key => {
+      location    = rg["region"]
+      tags        = local.tags
+      name        = "${key}-rg"
+      resource_id = "/subscriptions/${local.subscription_id}/resourceGroups/${key}-rg"
+      vm_prefix   = try(rg["vm_prefix"], key)
+    }
   }
 }
 
@@ -50,26 +57,16 @@ locals {
 Market Place Terms 
 */
 locals {
-  /* Create list of all market place terms */
-  palo_terms = flatten([
-    for x in module.connectivity_hub_data.paloalto_firewalls : {
-      publisher = x.image_reference.publisher
-      offer     = x.image_reference.offer
+  palo_marketplace_agreements = distinct(flatten([
+    for x in local.palo_nva : {
+      publisher = x.source_image_reference.publisher
+      offer     = x.source_image_reference.offer
       plan      = x.plan.name
     }
-  ])
+  ]))
 
-  /* Merge all the offer lists and flatten */
-  marketplace_agreements_concat = flatten([
-    for x in concat(
-      local.palo_terms
-    ) : x
-  ])
-
-  /* Select distinct offers and convert to map */
-  marketplace_agreements = distinct(local.marketplace_agreements_concat)
   marketplace_agreements_map = {
-    for x in local.marketplace_agreements : "${x.publisher}_${x.offer}_${x.plan}" => x
+    for x in local.palo_marketplace_agreements : "${x.publisher}_${x.offer}_${x.plan}" => x
   }
 }
 
