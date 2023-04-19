@@ -1,0 +1,22 @@
+{
+    "allow_ping": {
+        "deploy_policy": true,
+        "description": "Allow Ping outbound",
+        "name": "Allow Ping",
+        "audit_comment": "Initial config terraform",
+        "source_zones": ["${zone_trust}"],
+        "source_addresses": ["any"],
+        "source_users": ["any"],
+        "destination_zones": ["${zone_untrust}"],
+        "destination_addresses": ["any"],
+        "applications": ["ping"],
+        "services": ["any"],
+        "categories": ["any"],
+        "action": "allow",
+        "log_start": true,
+        "log_end": true,
+        "disabled": false,
+        "tags": ["Site//Global"],
+        "type": "universal"
+    }
+}
