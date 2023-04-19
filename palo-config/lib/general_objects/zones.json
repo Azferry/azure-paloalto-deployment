@@ -1,0 +1,18 @@
+{
+    "zones": {
+        "config": [
+            {
+                "name": "untrust-zone",
+                "mode": "layer3",
+                "enable_user_id": false,
+                "interfaces": ["ethernet1/1"]
+            },
+            {
+                "name": "trust-zone",
+                "mode": "layer3",
+                "enable_user_id": false,
+                "interfaces": ["ethernet1/2"]
+            }
+        ]
+    }
+}
