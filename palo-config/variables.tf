@@ -10,6 +10,12 @@ variable "pa_hostname" {
   default     = "paloalto01-vm"
 }
 
+variable "pa_trust_nic_name" {
+  type        = string
+  description = "Name of the network interface for the trust interface"
+  default     = "paloalto01-nic-trust"
+}
+
 variable "pa_sys_timezone" {
   type        = string
   description = "Timezone for the PA device"

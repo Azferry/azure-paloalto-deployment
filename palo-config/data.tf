@@ -26,3 +26,8 @@ data "azurerm_subnet" "az_sn_shared" {
   virtual_network_name = data.azurerm_virtual_network.azhubvn.name
   resource_group_name  = data.azurerm_virtual_network.azhubvn.resource_group_name
 }
+
+data "azurerm_network_interface" "trust_nic" {
+  name                = var.pa_trust_nic_name
+  resource_group_name = var.resource_group_name
+}

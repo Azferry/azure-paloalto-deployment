@@ -42,22 +42,3 @@ resource "azurerm_network_interface" "connectivity" {
   ]
   tags = each.value.tags
 }
-
-resource "azurerm_route_table" "udr" {
-  name                          = "example-route-table"
-  location                      = azurerm_resource_group.example.location
-  resource_group_name           = azurerm_resource_group.example.name
-  disable_bgp_route_propagation = false
-
-  route {
-    name           = "default_rt"
-    address_prefix = "10.1.0.0/16"
-    next_hop_type  = "VnetLocal"
-  }
-
-  depends_on = [
-    azurerm_resource_group.az_rg,
-    azurerm_subnet.connectivity,
-    azurerm_public_ip.connectivity
-  ]
-}
