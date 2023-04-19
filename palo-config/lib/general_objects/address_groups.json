@@ -1,0 +1,10 @@
+{
+    "dynamic_addr_grps":[
+        {
+            "name": "AzPrd-ag",
+            "tags": ["Env//PRD", "Site//Azure"],
+            "description": "All Prd CPI addresses in Az owned by ntc",
+            "dynamic_match": "'Env//PRD'  and 'Site//Azure'"
+        }
+    ]
+}

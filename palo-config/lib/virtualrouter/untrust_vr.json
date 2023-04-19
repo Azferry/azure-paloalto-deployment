@@ -1,0 +1,28 @@
+{
+    "untrust-vr": {
+        "enabled": true,
+        "name": "${vr_untrust_name}",
+        "static_distance": 15,
+        "interfaces": ["${nic_untrust}"],
+        "routes": [
+            {
+                "name":"to_internet",
+                "destination": "0.0.0.0/0",
+                "next_hop": "${ip_gw_sn_untrust}",
+                "interface": "${nic_untrust}",
+                "type": "ip-address",
+                "admin_distance": null,
+                "route_table": null
+            },
+            {
+                "name":"trust_sn",
+                "destination": "${cidr_sn_trust}",
+                "next_hop": "${vr_trust_name}",
+                "interface": null,
+                "type": "next-vr",
+                "admin_distance": null,
+                "route_table": null
+            }
+        ]
+    }
+}

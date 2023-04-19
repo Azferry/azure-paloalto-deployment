@@ -1,0 +1,22 @@
+{
+    "allow_web": {
+        "deploy_policy": true,
+        "description": "Allow Web Outbound",
+        "name": "Allow Web",
+        "audit_comment": "Initial config terraform",
+        "source_zones": ["${zone_trust}"],
+        "source_addresses": ["any"],
+        "source_users": ["any"],
+        "destination_zones": ["${zone_untrust}"],
+        "destination_addresses": ["any"],
+        "applications": ["any"],
+        "services": ["service-https"],
+        "categories": ["any"],
+        "action": "allow",
+        "log_start": true,
+        "log_end": true,
+        "disabled": false,
+        "tags": ["Site//Global"],
+        "type": "interzone"
+    }
+}

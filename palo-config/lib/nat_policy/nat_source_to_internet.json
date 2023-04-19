@@ -1,0 +1,28 @@
+{
+    "sourcetointernet": {
+        "name": "SourceToInternet",
+        "description": "NAT all trusted traffic destined to the Internet to the Untrust interface",
+        "group_tags": "",
+        "type": "ipv4",
+        "tags": ["Site//Global"],
+        "disable": false,
+        "original_packet": {
+            "source_zones": ["trust-zone"],
+            "destination_zone":  "untrust-zone",
+            "destination_interface": "any",
+            "service": "any",
+            "source_addresses": ["any"],
+            "destination_addresses": ["any"]
+        },
+        "translated_packet": {
+            "source": {
+                "dynamic_ip_and_port": [{
+                    "interface": "ethernet1/1",
+                    "ip_address": ""
+                }],
+                "static_ip": [],
+                "dynamic_ip": []
+            }
+        }
+    }
+}

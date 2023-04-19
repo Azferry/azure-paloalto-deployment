@@ -21,10 +21,10 @@ jobs:
         output-method: inject
         git-push: "true"
 
-    # - name: Render TF_docs - 02-AzureAd
-    #   uses: terraform-docs/gh-actions@v1.0.0
-    #   with:
-    #     working-dir: ./02-AzureAd
-    #     output-file: README.md
-    #     output-method: inject
-    #     git-push: "true"
+    - name: Render TF_docs - palo-config
+      uses: terraform-docs/gh-actions@v1.0.0
+      with:
+        working-dir: ./palo-config
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
