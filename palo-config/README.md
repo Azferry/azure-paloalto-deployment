@@ -64,10 +64,16 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_pa_hostname"></a> [pa\_hostname](#input\_pa\_hostname) | Host name of the pa device | `string` | n/a | yes |
+| <a name="input_auth_pa_hostname"></a> [auth\_pa\_hostname](#input\_auth\_pa\_hostname) | Host name of the auth pa device | `string` | `"paloalto01-nic-mgt-pip.eastus.cloudapp.azure.com"` | no |
+| <a name="input_auth_pa_password"></a> [auth\_pa\_password](#input\_auth\_pa\_password) | Password for the auth pa device | `string` | `"Change-Me-007"` | no |
+| <a name="input_auth_pa_username"></a> [auth\_pa\_username](#input\_auth\_pa\_username) | Username for the auth pa device | `string` | `"paloadmin"` | no |
+| <a name="input_mgt_sn_name"></a> [mgt\_sn\_name](#input\_mgt\_sn\_name) | Name of the management subnet | `string` | `"palo-mgt-sn01"` | no |
+| <a name="input_pa_hostname"></a> [pa\_hostname](#input\_pa\_hostname) | Host name of the pa device | `string` | `"paloalto01-vm"` | no |
 | <a name="input_pa_sys_timezone"></a> [pa\_sys\_timezone](#input\_pa\_sys\_timezone) | Timezone for the PA device | `string` | `"US/Eastern"` | no |
-| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | Subscription ID | `string` | n/a | yes |
-| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Name of hub vnet | `string` | n/a | yes |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource group name | `string` | `"paloalto01-rg"` | no |
+| <a name="input_trust_sn_name"></a> [trust\_sn\_name](#input\_trust\_sn\_name) | Name of the trust subnet | `string` | `"palo-trust-sn01"` | no |
+| <a name="input_untrust_sn_name"></a> [untrust\_sn\_name](#input\_untrust\_sn\_name) | Name of the untrust subnet | `string` | `"palo-untrust-sn01"` | no |
+| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Name of hub virtual network | `string` | `"paloalto01-vn"` | no |
 
 ## Outputs
 
