@@ -8,9 +8,7 @@ Before you begin, ensure that you have the following:
 
 1. A valid Azure subscription
 2. Access to the Azure portal
-3. A valid Palo Alto Firewall license
-   1. The license allows the use of advanced features, basic traffic flows will work.
-4. Basic knowledge of Terraform
+3. Basic knowledge of Terraform
 
 ## Deployment Steps
 
@@ -29,18 +27,22 @@ Follow the steps below to deploy the Azure Resources:
 
 Follow the steps below to deploy the configuration for the firewall:
 
-1. Login using the default user account
-2. Create a new service account
+1. Change to the directory ```cd .\palo-config```
+2. Initialize the Terraform environment - ```terraform init```
+3. Modify the Terraform files to include your specific configuration settings.
+4. Run ```terraform plan``` to validate the configuration.
+5. If the configuration is valid, run the command ```terraform apply``` to configure the palo.
 
 ## Post-deployment Steps
 
 After the deployment is complete, perform the following post-deployment steps:
 
 1. Change the users password from the default
-2. Configure the firewall policies and rules.
-3. Configure the interfaces and zones.
-4. Configure the routing tables and virtual network gateways.
-5. Test the connectivity and functionality of the firewall.
+2. Create a service account for go forward configuration with terraform
+3. Configure the firewall policies and rules.
+4. Configure the interfaces and zones.
+5. Configure the routing tables and virtual network gateways.
+6. Test the connectivity and functionality of the firewall.
 
 ## Troubleshooting
 
