@@ -60,35 +60,35 @@ resource "azurerm_public_ip" "connectivity" {
 /* 
 Network Security Group Deployment
 */
-# resource "azurerm_network_security_group" "connectivity" {
-#   for_each            = local.azurerm_nsg
-#   name                = each.value.name
-#   location            = each.value.location
-#   resource_group_name = each.value.resource_group_name
+resource "azurerm_network_security_group" "connectivity" {
+  for_each            = local.azurerm_nsg
+  name                = each.value.name
+  location            = each.value.location
+  resource_group_name = each.value.resource_group_name
 
-#   security_rule = each.value.security_rules
+  security_rule = each.value.security_rules
 
-#   tags = each.value.tags
-#   # Set explicit dependencies
-#   depends_on = [
-#     azurerm_resource_group.az_rg
-#   ]
-# }
+  tags = each.value.tags
+  # Set explicit dependencies
+  depends_on = [
+    azurerm_resource_group.az_rg
+  ]
+}
 
 /* 
 Subnet Attchment to Network Security Group
 */
-# resource "azurerm_subnet_network_security_group_association" "connectivity" {
-#   for_each                  = local.azurerm_nsg
-#   subnet_id                 = each.value.subnet_id
-#   network_security_group_id = each.value.nsg_resource_id
+resource "azurerm_subnet_network_security_group_association" "connectivity" {
+  for_each                  = local.azurerm_attach_nsg_sn
+  subnet_id                 = each.value.sn_id
+  network_security_group_id = each.value.nsg_id
 
-#   # Set explicit dependencies
-#   depends_on = [
-#     azurerm_resource_group.az_rg,
-#     azurerm_network_security_group.connectivity,
-#     azurerm_subnet.connectivity
-#   ]
-# }
+  # Set explicit dependencies
+  depends_on = [
+    azurerm_resource_group.az_rg,
+    azurerm_network_security_group.connectivity,
+    azurerm_subnet.connectivity
+  ]
+}
 
 

@@ -26,6 +26,12 @@ locals {
 
     /* Public IP */
     # public_ip = local.public_ip
+
+    /* Network Security Group */
+    # network_security_group = local.network_security_group
+    # nsg_attach_sn = local.nsg_attach_sn
+    # azurerm_attach_nsg_sn = local.azurerm_attach_nsg_sn
+    # azurerm_nsg = local.azurerm_nsg
   }
 }
 

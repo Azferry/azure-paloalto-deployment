@@ -9,17 +9,17 @@
                 { 
                     "name": "palo-mgt-sn01",
                     "address_prefix": ["10.10.0.32/27"],
-                    "network_security_group_id": null
+                    "attach_nsg_on_sn": true
                 },
                 { 
                     "name": "palo-trust-sn01",
                     "address_prefix": ["10.10.0.64/27"],
-                    "network_security_group_id": null
+                    "attach_nsg_on_sn": false
                 },
                 { 
                     "name": "palo-untrust-sn01",
                     "address_prefix": ["10.10.0.96/27"],
-                    "network_security_group_id": null
+                    "attach_nsg_on_sn": false
                 }
             ]
         },

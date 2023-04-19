@@ -90,6 +90,7 @@ locals {
           name        = x.name
           cidr        = x.address_prefix
           resource_id = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/virtualNetworks/${key}-vn/subnets/${x.name}"
+          attach_nsg_on_sn = try(x.attach_nsg_on_sn, false)
         }
       ]
     }
@@ -103,7 +104,7 @@ locals {
         resource_group_name = vn.resource_group_name
         location            = vn.location
         cidr                = sn.cidr
-        # attach_nsg     = try(sn.attach_nsg != false, true)
+        attach_nsg     = try(sn.attach_nsg_on_sn != false, true)
         sn_id = sn.resource_id
         # route_table_id = "/subscriptions/${local.subscription_id}/resourceGroups/${vn.rg_name}/providers/Microsoft.Network/routeTables/${vn.cpi_prefix}-vn${vn.series}-udr"
       }
@@ -118,20 +119,49 @@ locals {
     for x in local.subnets : "${x.resource_group_name}-${x.name}" => x
   }
 
-  # sn_attach_nsg = {
-  #   for x in local.azurerm_vnet_sn : "${x.rg_name}-${x.name}" => x if try(x.attach_nsg != false, true)
-  # }
+}
 
-  # nsg_attach_sn = [
-  #   for cpi in local.sn_attach_nsg : {
-  #     nsg_id = local.azurerm_nsg[cpi.rg_name].resource_id
-  #     sn_id  = cpi.sn_id
-  #   }
-  # ]
+/* 
+Deploy Network security groups
+*/
+locals {
+  network_security_groups = [
+    for key, nsg in local.definitions_map_from_json : {
+      name                = try("${key}-nsg", nsg.hub_network.name)
+      resource_id         = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/networkSecurityGroups/${key}-nsg"
+      location            = local.resource_groups[key].location
+      resource_group_name = local.resource_groups[key].name
+      tags                = local.tags
+      security_rules = [
+      #   for x in nsg.hub_network.security_rules : {
+      #     name                       = x.name
+      #     priority                   = x.priority
+      #     direction                  = x.direction
+      #     access                     = x.access
+      #     protocol                   = x.protocol
+      #     source_port_range          = x.source_port_range
+      #     destination_port_range     = x.destination_port_range
+      #     source_address_prefix      = x.source_address_prefix
+      #     destination_address_prefix = x.destination_address_prefix
+      #   }
+      ]
+    }
+  ]
 
-  # azurerm_attach_nsg_sn = {
-  #   for x in local.nsg_attach_sn : x.sn_id => x
-  # }
+  azurerm_nsg = {
+    for x in local.network_security_groups : x.resource_group_name => x
+  }
+
+  nsg_attach_sn = [
+    for x in local.azurerm_vnet_sn : {
+      nsg_id = local.azurerm_nsg[x.resource_group_name].resource_id
+      sn_id  = x.sn_id
+    } if try(x.attach_nsg != false, true)
+  ]
+
+  azurerm_attach_nsg_sn = {
+    for x in local.nsg_attach_sn : x.sn_id => x
+  }
 }
 
 /* 
