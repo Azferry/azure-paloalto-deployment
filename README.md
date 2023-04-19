@@ -8,9 +8,7 @@ Before you begin, ensure that you have the following:
 
 1. A valid Azure subscription
 2. Access to the Azure portal
-3. A valid Palo Alto Firewall license
-   1. The license allows the use of advanced features, basic traffic flows will work.
-4. Basic knowledge of Terraform
+3. Basic knowledge of Terraform
 
 ## Deployment Steps
 
