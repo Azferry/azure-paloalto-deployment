@@ -7,7 +7,7 @@ variable "vnet_name" {
 variable "pa_hostname" {
   type        = string
   description = "Host name of the pa device"
-  default = "paloalto01-vm"
+  default     = "paloalto01-vm"
 }
 
 variable "pa_sys_timezone" {
@@ -43,17 +43,17 @@ variable "mgt_sn_name" {
 variable "auth_pa_hostname" {
   type        = string
   description = "Host name of the auth pa device"
-  default = "paloalto01-nic-mgt-pip.eastus.cloudapp.azure.com"
+  default     = "paloalto01-nic-mgt-pip.eastus.cloudapp.azure.com"
 }
 
 variable "auth_pa_username" {
   type        = string
   description = "Username for the auth pa device"
-  default = "paloadmin"
+  default     = "paloadmin"
 }
 
 variable "auth_pa_password" {
   type        = string
   description = "Password for the auth pa device"
-  default = "Change-Me-007"
+  default     = "Change-Me-007"
 }

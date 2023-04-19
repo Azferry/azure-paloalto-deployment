@@ -35,7 +35,7 @@ resource "panos_management_profile" "pa_mgt_policy" {
   userid_syslog_listener_ssl = each.value.userid_syslog_listener_ssl
   userid_syslog_listener_udp = each.value.userid_syslog_listener_udp
   permitted_ips              = each.value.permitted_ips # list
-  
+
   lifecycle {
     create_before_destroy = true
   }
