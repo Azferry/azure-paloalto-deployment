@@ -18,9 +18,12 @@ terraform {
 }
 
 provider "panos" {
-  hostname = "paloalto01-nic-mgt-pip.eastus.cloudapp.azure.com"
-  username = "paloadmin"
-  password = "Change-Me-007"
+  hostname = var.auth_pa_hostname
+  username = var.auth_pa_username
+  password = var.auth_pa_password
+
+  /* If you want to use a JSON file for the provider configuration, 
+  uncomment the following line and comment out the above 3 lines. */
   # json_config_file = "../panos-creds.json"
 }
 

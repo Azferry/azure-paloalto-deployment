@@ -39,3 +39,21 @@ variable "mgt_sn_name" {
   description = "Name of the management subnet"
   default     = "palo-mgt-sn01"
 }
+
+variable "auth_pa_hostname" {
+  type        = string
+  description = "Host name of the auth pa device"
+  default = "paloalto01-nic-mgt-pip.eastus.cloudapp.azure.com"
+}
+
+variable "auth_pa_username" {
+  type        = string
+  description = "Username for the auth pa device"
+  default = "paloadmin"
+}
+
+variable "auth_pa_password" {
+  type        = string
+  description = "Password for the auth pa device"
+  default = "Change-Me-007"
+}
