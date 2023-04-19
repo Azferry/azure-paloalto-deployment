@@ -1,0 +1,39 @@
+{
+    "tags": [
+        {
+           "name":"Env//PRD",
+           "color": "color10",
+           "comment": "Environment Type"
+        },
+        {
+            "name":"Env//DEV",
+            "color": "color10",
+            "comment": "Environment Type"
+        },
+        {
+            "name":"Env//DMZ",
+            "color": "color10",
+            "comment": "Environment Type" 
+        },
+        {
+            "name": "Type//IPSec",
+            "color": "color24",
+            "comment": "Traffic specific to onprem"
+        },
+        {
+            "name": "Site//Azure",
+            "color": "color24",
+            "comment": "Intenral address space for azure"
+        },
+        {
+            "name": "App//ADDS",
+            "color": "color12",
+            "comment": "Active Directory Domain Services"
+        },
+        {
+            "name": "Site//Global",
+            "color": "color24",
+            "comment": "Policy that applies as a global default"
+        }
+    ]
+}
