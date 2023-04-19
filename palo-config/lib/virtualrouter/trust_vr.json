@@ -1,0 +1,28 @@
+{
+    "trust-vr": {
+        "enabled": true,
+        "name": "${vr_trust_name}",
+        "static_distance": 15,
+        "interfaces": ["${nic_trust}"],
+        "routes": [
+            {
+                "name":"Unturst Internet Relay",
+                "destination": "0.0.0.0/0",
+                "next_hop": "${vr_untrust_name}",
+                "interface": "${nic_trust}",
+                "type": "next-vr",
+                "admin_distance": null,
+                "route_table": null
+            },
+            {
+                "name":"shared_sn",
+                "destination": "10.10.0.0/28",
+                "next_hop": "${ip_gw_sn_trust}",
+                "interface": "${nic_trust}",
+                "type": "ip-address",
+                "admin_distance": null,
+                "route_table": null
+            }
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "untrust01": {
+        "name": "ethernet1/1",
+        "vsys": "vsys1",
+        "mode": "layer3",
+        "comment": "untrust",
+        "enable_dhcp": true,
+        "dhcp_default_route_metric": 10,
+        "management_profile": {
+            "ping": true,
+            "telnet": null,
+            "ssh": null,
+            "http": null,
+            "http_ocsp": null,
+            "https": null,
+            "snmp": null,
+            "response_pages": null,
+            "userid_service": null,
+            "userid_syslog_listener_ssl": null,
+            "userid_syslog_listener_udp": null,
+            "permitted_ips": null
+        }
+    }
+}
