@@ -23,11 +23,13 @@ The terraform code defines the configuration for panos:
 To test connectivity on each of the interfaces, login via SSH to the VM and use the ping command with the source IP of the nic.
 
 ```shell
-ping source UntrustInterfaceIP host 8.8.8.8
+## Ping for management interface
+Ping host 8.8.8.8
 
-Ping host 8.8.8.8 #(Management interface)
-
+## Ping for untrust interface
 ping source <UnTurst_NIC_IP> host 8.8.8.8
+
+## Ping for trust interface
 ping source <Turst_NIC_IP> host 8.8.8.8
 ```
 
