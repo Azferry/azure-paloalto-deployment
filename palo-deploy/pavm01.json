@@ -1,0 +1,73 @@
+{
+    "paloalto01": {
+        "enabled": true,
+        "region": "eastus",
+        "hub_network": {
+            "name": null,
+            "address_space": ["10.10.0.0/24"],
+            "subnets": [
+                { 
+                    "name": "palo-mgt-sn01",
+                    "address_prefix": ["10.10.0.32/27"],
+                    "attach_nsg_on_sn": true
+                },
+                { 
+                    "name": "palo-trust-sn01",
+                    "address_prefix": ["10.10.0.64/27"],
+                    "attach_nsg_on_sn": false
+                },
+                { 
+                    "name": "palo-untrust-sn01",
+                    "address_prefix": ["10.10.0.96/27"],
+                    "attach_nsg_on_sn": false
+                }
+            ]
+        },
+        "palo_nva": {
+            "vm_size": "Standard_DS3_v2",
+            "vm_prefix": null,
+            "vm_disktype": "Premium_LRS",
+            "network_interfaces": [
+                {
+                    "post_fix": "mgt",
+                    "public_ip": true, 
+                    "nic_series": "01",
+                    "subnet": "palo-mgt-sn01",
+                    "enable_accelerated_networking": false,
+                    "enable_ip_forwarding": false, 
+                    "attach_nsg_on_sn": true
+                },
+                {
+                    "post_fix": "untrust",
+                    "public_ip": true,
+                    "nic_series": "02", 
+                    "subnet": "palo-untrust-sn01",
+                    "enable_accelerated_networking": true,
+                    "enable_ip_forwarding": true,
+                    "attach_nsg_on_sn": false
+                },
+                {
+                    "post_fix": "trust",
+                    "public_ip": false, 
+                    "nic_series": "03",
+                    "subnet": "palo-trust-sn01",
+                    "enable_accelerated_networking": true,
+                    "enable_ip_forwarding": true,
+                    "attach_nsg_on_sn": false
+                }
+            ],
+            "source_image_reference": {
+                "publisher": "paloaltonetworks",
+                "offer": "vmseries-flex",
+                "sku": "byol",
+                "version": "latest"
+            },
+            "plan": {
+                "name": "byol",
+                "publisher": "paloaltonetworks",
+                "product": "vmseries-flex"
+            }
+            
+        }
+    }
+}
