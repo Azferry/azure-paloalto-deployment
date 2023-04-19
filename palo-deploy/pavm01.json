@@ -20,6 +20,11 @@
                     "name": "palo-untrust-sn01",
                     "address_prefix": ["10.10.0.96/27"],
                     "attach_nsg_on_sn": false
+                },
+                { 
+                    "name": "shared-sn01",
+                    "address_prefix": ["10.10.0.128/27"],
+                    "attach_nsg_on_sn": false
                 }
             ]
         },

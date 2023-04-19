@@ -50,7 +50,7 @@ After the deployment is complete, perform the following post-deployment steps:
 5. Configure the routing tables and virtual network gateways.
 6. Test the connectivity and functionality of the firewall.
 
-## Testing
+## Troubleshooting
 
 ### Test connectivity on interfaces
 
@@ -66,8 +66,6 @@ ping source <UnTurst_NIC_IP> host 8.8.8.8
 ## Ping for trust interface
 ping source <Turst_NIC_IP> host 8.8.8.8
 ```
-
-## Troubleshooting
 
 ### azurerm_marketplace_agreement Out Of State
 

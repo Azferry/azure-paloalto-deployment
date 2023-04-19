@@ -15,8 +15,8 @@
                 "route_table": null
             },
             {
-                "name":"shared_sn",
-                "destination": "10.10.0.0/28",
+                "name":"trust_sn",
+                "destination": "${cidr_sn_trust}",
                 "next_hop": "${ip_gw_sn_trust}",
                 "interface": "${nic_trust}",
                 "type": "ip-address",
