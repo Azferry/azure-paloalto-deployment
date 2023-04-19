@@ -87,9 +87,9 @@ locals {
       vnet_cidr           = vn.hub_network.address_space
       vnet_subnets = [
         for x in vn.hub_network.subnets : {
-          name        = x.name
-          cidr        = x.address_prefix
-          resource_id = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/virtualNetworks/${key}-vn/subnets/${x.name}"
+          name             = x.name
+          cidr             = x.address_prefix
+          resource_id      = "${local.resource_groups[key].resource_id}/providers/Microsoft.Network/virtualNetworks/${key}-vn/subnets/${x.name}"
           attach_nsg_on_sn = try(x.attach_nsg_on_sn, false)
         }
       ]
@@ -104,8 +104,8 @@ locals {
         resource_group_name = vn.resource_group_name
         location            = vn.location
         cidr                = sn.cidr
-        attach_nsg     = try(sn.attach_nsg_on_sn != false, true)
-        sn_id = sn.resource_id
+        attach_nsg          = try(sn.attach_nsg_on_sn != false, true)
+        sn_id               = sn.resource_id
         # route_table_id = "/subscriptions/${local.subscription_id}/resourceGroups/${vn.rg_name}/providers/Microsoft.Network/routeTables/${vn.cpi_prefix}-vn${vn.series}-udr"
       }
     ]
@@ -133,17 +133,17 @@ locals {
       resource_group_name = local.resource_groups[key].name
       tags                = local.tags
       security_rules = [
-      #   for x in nsg.hub_network.security_rules : {
-      #     name                       = x.name
-      #     priority                   = x.priority
-      #     direction                  = x.direction
-      #     access                     = x.access
-      #     protocol                   = x.protocol
-      #     source_port_range          = x.source_port_range
-      #     destination_port_range     = x.destination_port_range
-      #     source_address_prefix      = x.source_address_prefix
-      #     destination_address_prefix = x.destination_address_prefix
-      #   }
+        #   for x in nsg.hub_network.security_rules : {
+        #     name                       = x.name
+        #     priority                   = x.priority
+        #     direction                  = x.direction
+        #     access                     = x.access
+        #     protocol                   = x.protocol
+        #     source_port_range          = x.source_port_range
+        #     destination_port_range     = x.destination_port_range
+        #     source_address_prefix      = x.source_address_prefix
+        #     destination_address_prefix = x.destination_address_prefix
+        #   }
       ]
     }
   ]
@@ -191,9 +191,6 @@ locals {
           ip_configurations = {
             name      = "IPConfig"
             subnet_id = local.azurerm_vnet_sn["${local.resource_groups[key].name}-${x.subnet}"].sn_id
-            #     private_ip_address_allocation = try(y.private_ip_address_allocation, "Dynamic")
-            #     private_ip_address = try(y.private_ip_address, null)
-            #     public_ip_address_id = try(y.public_ip_address_id, null)
           }
         }
       ]

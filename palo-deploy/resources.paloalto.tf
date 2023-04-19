@@ -44,7 +44,7 @@ resource "azurerm_linux_virtual_machine" "FW" {
   depends_on = [
     azurerm_resource_group.az_rg,
     azurerm_subnet.connectivity,
-    # azurerm_public_ip.connectivity,
+    azurerm_public_ip.connectivity,
     azurerm_network_interface.connectivity,
     # azurerm_marketplace_agreement.connectivity
   ]
