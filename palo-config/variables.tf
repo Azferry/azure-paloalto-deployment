@@ -33,6 +33,11 @@ variable "untrust_sn_name" {
   description = "Name of the untrust subnet"
   default     = "palo-untrust-sn01"
 }
+variable "shared_sn_name" {
+  type        = string
+  description = "Name of the shared subnet"
+  default     = "shared-sn01"
+}
 
 variable "mgt_sn_name" {
   type        = string
