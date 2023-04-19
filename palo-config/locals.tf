@@ -1,7 +1,6 @@
 
 locals {
   builtin_library_path = "lib"
-  subscription_id      = var.subscription_id
   pa_hostname          = var.pa_hostname
   pa_sys_timezone      = var.pa_sys_timezone
   template_file_vars = {

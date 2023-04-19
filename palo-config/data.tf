@@ -4,19 +4,19 @@ data "azurerm_virtual_network" "azhubvn" {
 }
 
 data "azurerm_subnet" "az_sn_mgt" {
-  name                 = "palo-mgt-sn01"
+  name                 = var.mgt_sn_name
   virtual_network_name = data.azurerm_virtual_network.azhubvn.name
   resource_group_name  = data.azurerm_virtual_network.azhubvn.resource_group_name
 }
 
 data "azurerm_subnet" "az_sn_trust" {
-  name                 = "palo-trust-sn01"
+  name                 = var.trust_sn_name
   virtual_network_name = data.azurerm_virtual_network.azhubvn.name
   resource_group_name  = data.azurerm_virtual_network.azhubvn.resource_group_name
 }
 
 data "azurerm_subnet" "az_sn_untrust" {
-  name                 = "palo-untrust-sn01"
+  name                 = var.untrust_sn_name
   virtual_network_name = data.azurerm_virtual_network.azhubvn.name
   resource_group_name  = data.azurerm_virtual_network.azhubvn.resource_group_name
 }

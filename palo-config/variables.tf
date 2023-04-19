@@ -1,21 +1,13 @@
 variable "vnet_name" {
   type        = string
-  description = "Name of hub vnet"
-}
-
-
-variable "subscription_id" {
-  type        = string
-  description = "Subscription ID"
-  validation {
-    condition     = can(regex("^[a-z0-9-]{36}$", var.subscription_id)) || var.subscription_id == ""
-    error_message = "Value must be a valid Subscription ID (GUID)."
-  }
+  description = "Name of hub virtual network"
+  default     = "paloalto01-vn"
 }
 
 variable "pa_hostname" {
   type        = string
   description = "Host name of the pa device"
+  default = "paloalto01-vm"
 }
 
 variable "pa_sys_timezone" {
@@ -28,4 +20,22 @@ variable "resource_group_name" {
   type        = string
   description = "Resource group name"
   default     = "paloalto01-rg"
+}
+
+variable "trust_sn_name" {
+  type        = string
+  description = "Name of the trust subnet"
+  default     = "palo-trust-sn01"
+}
+
+variable "untrust_sn_name" {
+  type        = string
+  description = "Name of the untrust subnet"
+  default     = "palo-untrust-sn01"
+}
+
+variable "mgt_sn_name" {
+  type        = string
+  description = "Name of the management subnet"
+  default     = "palo-mgt-sn01"
 }
