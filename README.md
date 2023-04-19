@@ -1,6 +1,6 @@
 # Introduction
 
- Provides step-by-step instructions for deploying a Palo Alto Firewall Network Virtual Appliance (NVA) in Microsoft Azure using Terraform.
+Guide on deploying a Palo Alto Firewall Virtual Appliance (NVA) on Azure and configure it using Terraform. Using infrastructure as code to automate the process on management and configuration of the network security infrastructure.
 
 ## Prerequisites
 
@@ -32,6 +32,7 @@ Follow the steps below to deploy the configuration for the firewall:
 3. Modify the Terraform files to include your specific configuration settings.
 4. Run ```terraform plan``` to validate the configuration.
 5. If the configuration is valid, run the command ```terraform apply``` to configure the palo.
+6. In the palo portal commit the changes terraform added
 
 ## Post-deployment Steps
 
