@@ -14,5 +14,6 @@ locals {
     ip_gw_sn_untrust = cidrhost(data.azurerm_subnet.az_sn_untrust.address_prefix, 1)
     cidr_sn_trust    = data.azurerm_subnet.az_sn_trust.address_prefixes[0]
     cidr_sn_untrust  = data.azurerm_subnet.az_sn_untrust.address_prefixes[0]
+    cidr_sn_shared   = data.azurerm_subnet.az_sn_shared.address_prefixes[0]
   }
 }

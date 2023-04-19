@@ -10,6 +10,12 @@ variable "pa_hostname" {
   default     = "paloalto01-vm"
 }
 
+variable "pa_trust_nic_name" {
+  type        = string
+  description = "Name of the network interface for the trust interface"
+  default     = "paloalto01-nic-trust"
+}
+
 variable "pa_sys_timezone" {
   type        = string
   description = "Timezone for the PA device"
@@ -32,6 +38,11 @@ variable "untrust_sn_name" {
   type        = string
   description = "Name of the untrust subnet"
   default     = "palo-untrust-sn01"
+}
+variable "shared_sn_name" {
+  type        = string
+  description = "Name of the shared subnet"
+  default     = "shared-sn01"
 }
 
 variable "mgt_sn_name" {

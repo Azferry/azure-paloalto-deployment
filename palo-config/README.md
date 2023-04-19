@@ -58,6 +58,8 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurerm_route_table.udr](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/route_table) | resource |
+| [azurerm_subnet_route_table_association.udr_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
 | [panos_address_group.pa_addr_groups](https://registry.terraform.io/providers/PaloAltoNetworks/panos/1.11.1/docs/resources/address_group) | resource |
 | [panos_administrative_tag.pa_tags](https://registry.terraform.io/providers/PaloAltoNetworks/panos/1.11.1/docs/resources/administrative_tag) | resource |
 | [panos_ethernet_interface.pa_interface](https://registry.terraform.io/providers/PaloAltoNetworks/panos/1.11.1/docs/resources/ethernet_interface) | resource |
@@ -68,7 +70,9 @@ No modules.
 | [panos_static_route_ipv4.pa_vr_route](https://registry.terraform.io/providers/PaloAltoNetworks/panos/1.11.1/docs/resources/static_route_ipv4) | resource |
 | [panos_virtual_router.pa_vr](https://registry.terraform.io/providers/PaloAltoNetworks/panos/1.11.1/docs/resources/virtual_router) | resource |
 | [panos_zone.pa_zones](https://registry.terraform.io/providers/PaloAltoNetworks/panos/1.11.1/docs/resources/zone) | resource |
+| [azurerm_network_interface.trust_nic](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/network_interface) | data source |
 | [azurerm_subnet.az_sn_mgt](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
+| [azurerm_subnet.az_sn_shared](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
 | [azurerm_subnet.az_sn_trust](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
 | [azurerm_subnet.az_sn_untrust](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
 | [azurerm_virtual_network.azhubvn](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network) | data source |
@@ -83,7 +87,9 @@ No modules.
 | <a name="input_mgt_sn_name"></a> [mgt\_sn\_name](#input\_mgt\_sn\_name) | Name of the management subnet | `string` | `"palo-mgt-sn01"` | no |
 | <a name="input_pa_hostname"></a> [pa\_hostname](#input\_pa\_hostname) | Host name of the pa device | `string` | `"paloalto01-vm"` | no |
 | <a name="input_pa_sys_timezone"></a> [pa\_sys\_timezone](#input\_pa\_sys\_timezone) | Timezone for the PA device | `string` | `"US/Eastern"` | no |
+| <a name="input_pa_trust_nic_name"></a> [pa\_trust\_nic\_name](#input\_pa\_trust\_nic\_name) | Name of the network interface for the trust interface | `string` | `"paloalto01-nic-trust"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource group name | `string` | `"paloalto01-rg"` | no |
+| <a name="input_shared_sn_name"></a> [shared\_sn\_name](#input\_shared\_sn\_name) | Name of the shared subnet | `string` | `"shared-sn01"` | no |
 | <a name="input_trust_sn_name"></a> [trust\_sn\_name](#input\_trust\_sn\_name) | Name of the trust subnet | `string` | `"palo-trust-sn01"` | no |
 | <a name="input_untrust_sn_name"></a> [untrust\_sn\_name](#input\_untrust\_sn\_name) | Name of the untrust subnet | `string` | `"palo-untrust-sn01"` | no |
 | <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Name of hub virtual network | `string` | `"paloalto01-vn"` | no |

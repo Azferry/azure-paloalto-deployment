@@ -22,6 +22,15 @@
                 "type": "next-vr",
                 "admin_distance": null,
                 "route_table": null
+            },
+            {
+                "name":"shared_sn",
+                "destination": "${cidr_sn_shared}",
+                "next_hop": "${vr_trust_name}",
+                "interface": null,
+                "type": "next-vr",
+                "admin_distance": null,
+                "route_table": null
             }
         ]
     }
