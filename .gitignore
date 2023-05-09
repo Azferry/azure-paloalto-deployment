@@ -27,3 +27,9 @@ terraform.rc
 
 # Visual Studios / VS Code
 .vs
+
+# Mac finder
+*.DS_Store
+
+#DrawIo
+*.$Diagram.drawio.*
