@@ -27,3 +27,5 @@ terraform.rc
 
 # Visual Studios / VS Code
 .vs
+
+*.DS_Store
