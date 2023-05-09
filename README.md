@@ -2,6 +2,8 @@
 
 Guide on deploying a Palo Alto Firewall Virtual Appliance (NVA) on Azure and configure it using Terraform. Using infrastructure as code to automate the process on management and configuration of the network security infrastructure.
 
+![palo_diagram](img/Diagram.png)
+
 ## Prerequisites
 
 Before you begin, ensure that you have the following:
