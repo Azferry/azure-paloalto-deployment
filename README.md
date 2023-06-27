@@ -1,7 +1,6 @@
-# Introduction
+# PaloAlto NVA Lab Deployment for Azure Enterprise Scale Landing Zones
 
-Guide on deploying a Palo Alto Firewall Virtual Appliance (NVA) on Azure and configure it using Terraform. Using infrastructure as code to automate the process on management and configuration of the network security infrastructure.
-
+This GitHub open-source project aims to provide a comprehensive lab environment for deploying and configuring PaloAlto Network Virtual Appliances (NVAs) on Azure. The primary objective is to use infrastructure as code to automate the process of management and configuration of the network security infrastructure, in an enterprise scale environment.
 ![palo_diagram](img/Diagram.png)
 
 ## Prerequisites
@@ -11,23 +10,21 @@ Before you begin, ensure that you have the following:
 1. Access to an Azure subscription
    1. With Contributor Access - Deployment of resource group and accept marketplace agreements.
 2. Basic knowledge of Terraform
-3. PanSupport account (For production Deployments.)
-   1. The deployment definition default License is BYOD
 
 ## Deployment Steps
 
-### Azure Resources
+### Azure Resources Deployment
 
 Follow the steps below to deploy the Azure Resources:
 
 1. Clone the GitHub repository
 2. Change to the directory ```cd .\palo-deploy```
 3. Initialize the Terraform environment - ```terraform init```
-4. Modify the Terraform files to include your specific configuration settings.
+4. Optional: modify the ```pavm01.json``` to fit to your environment.
 5. Run ```terraform plan``` to validate the configuration.
-6. If the configuration is valid, run the command ```terraform apply``` to create the resources in Azure.
+6. Run ```terraform apply``` to create the resources in Azure.
 
-### Palo Configuration
+### PaloAlto Configuration
 
 Follow the steps below to deploy the configuration for the firewall:
 
@@ -35,10 +32,10 @@ Follow the steps below to deploy the configuration for the firewall:
 2. Initialize the Terraform environment - ```terraform init```
 3. Modify the Terraform files to include your specific configuration settings.
 4. Run ```terraform plan``` to validate the configuration.
-5. If the configuration is valid, run the command ```terraform apply``` to configure the palo.
+5. Run ```terraform apply``` to configure the palo.
 6. Login to the firewall portal with the public IP or Public IP DNS
-   1. ```https://<PUBLIC_IP_MGT_NIC_DNS>.<AZURE_REGION>.cloudapp.azure.com/php/login.php```
-   2. ```https://<PUBLIC_IP_MGT_NIC_IP>/php/login.php```
+   1. Access Via Default DNS - ```https://<PUBLIC_IP_MGT_NIC_DNS>.<AZURE_REGION>.cloudapp.azure.com/php/login.php```
+   2. Access Via IP - ```https://<PUBLIC_IP_MGT_NIC_IP>/php/login.php```
 7. In the palo portal commit the changes terraform added
 
 ## Post-deployment Steps
@@ -51,6 +48,16 @@ After the deployment is complete, perform the following post-deployment steps:
 4. Configure the management interface network security group to block all traffic except for allowed locations.
 5. Configure the routing tables and virtual network gateways.
 6. Test the connectivity and functionality of the firewall.
+
+## Cleanup Lab Environment
+
+This project uses the builtin terraform destroy command as a cleanup mechanism to remove all resources provisioned in azure for the lab. The cleanup process helps users avoid unnecessary costs and orphaned resources Azure environment.
+
+```powershell
+cd .\palo-deploy
+
+terraform destroy
+```
 
 ## Troubleshooting
 
@@ -74,3 +81,7 @@ ping source <Turst_NIC_IP> host 8.8.8.8
 The marketplace agreement may have already been accepted causing terraform to error out. To get pass this import the object into the terraform state or comment out the object in the resource.standard.tf file.
 
 ![TF_MarketPlaceError](img/error-tfimport-makagreement.jpg)
+
+## Contributions and Feedback
+
+This project welcomes contributions and feedback from the open-source community. Whether it's bug reports, feature requests, or code contributions, all forms of participation are encouraged. Together, we can enhance the project's capabilities, address potential issues, and make it more valuable for users.
