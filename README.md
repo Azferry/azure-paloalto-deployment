@@ -10,8 +10,6 @@ Before you begin, ensure that you have the following:
 1. Access to an Azure subscription
    1. With Contributor Access - Deployment of resource group and accept marketplace agreements.
 2. Basic knowledge of Terraform
-3. PanSupport account (For production Deployments.)
-   1. The deployment definition default License is BYOD
 
 ## Deployment Steps
 
