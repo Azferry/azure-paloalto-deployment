@@ -1,7 +1,6 @@
 # PaloAlto NVA Lab Deployment for Azure Enterprise Scale Landing Zones
 
-Guide on deploying a Palo Alto Firewall Virtual Appliance (NVA) on Azure and configure it using Terraform. Using infrastructure as code to automate the process on management and configuration of the network security infrastructure.
-
+This GitHub open-source project aims to provide a comprehensive lab environment for deploying and configuring PaloAlto Network Virtual Appliances (NVAs) on Azure. The primary objective is to use infrastructure as code to automate the process of management and configuration of the network security infrastructure, in an enterprise scale environment.
 ![palo_diagram](img/Diagram.png)
 
 ## Prerequisites
@@ -16,7 +15,7 @@ Before you begin, ensure that you have the following:
 
 ## Deployment Steps
 
-### Azure Resources
+### Azure Resources Deployment
 
 Follow the steps below to deploy the Azure Resources:
 
@@ -37,8 +36,8 @@ Follow the steps below to deploy the configuration for the firewall:
 4. Run ```terraform plan``` to validate the configuration.
 5. Run ```terraform apply``` to configure the palo.
 6. Login to the firewall portal with the public IP or Public IP DNS
-   1. ```https://<PUBLIC_IP_MGT_NIC_DNS>.<AZURE_REGION>.cloudapp.azure.com/php/login.php```
-   2. ```https://<PUBLIC_IP_MGT_NIC_IP>/php/login.php```
+   1. Access Via Default DNS - ```https://<PUBLIC_IP_MGT_NIC_DNS>.<AZURE_REGION>.cloudapp.azure.com/php/login.php```
+   2. Access Via IP - ```https://<PUBLIC_IP_MGT_NIC_IP>/php/login.php```
 7. In the palo portal commit the changes terraform added
 
 ## Post-deployment Steps
@@ -62,10 +61,6 @@ cd .\palo-deploy
 terraform destroy
 ```
 
-## Contributions and Feedback
-
-This project welcomes contributions and feedback from the open-source community. Whether it's bug reports, feature requests, or code contributions, all forms of participation are encouraged. Together, we can enhance the project's capabilities, address potential issues, and make it more valuable for users.
-
 ## Troubleshooting
 
 ### Test connectivity on interfaces
@@ -88,3 +83,7 @@ ping source <Turst_NIC_IP> host 8.8.8.8
 The marketplace agreement may have already been accepted causing terraform to error out. To get pass this import the object into the terraform state or comment out the object in the resource.standard.tf file.
 
 ![TF_MarketPlaceError](img/error-tfimport-makagreement.jpg)
+
+## Contributions and Feedback
+
+This project welcomes contributions and feedback from the open-source community. Whether it's bug reports, feature requests, or code contributions, all forms of participation are encouraged. Together, we can enhance the project's capabilities, address potential issues, and make it more valuable for users.
